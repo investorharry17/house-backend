@@ -36,7 +36,10 @@ const app = express()
 app.use(express.json())
 app.use(compression()) 
 const corsOptions = {
-	origin : ["http://localhost:5173", "harry_house_backend.onrender.com"],
+	origin : ["http://localhost:5173", 
+		"harry_house_backend.onrender.com",
+		"https://harry-house-backend.onrender.com"
+	],
 	methods : "*",
 	optionSuccessStauts : 204
 } 
