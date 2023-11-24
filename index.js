@@ -38,7 +38,8 @@ app.use(compression())
 const corsOptions = {
 	origin : ["http://localhost:5173", 
 		"harry_house_backend.onrender.com",
-		"https://harry-house-backend.onrender.com"
+		"https://harry-house-backend.onrender.com",
+		"https://radiant-kitten-54a8b1.netlify.app"
 	],
 	methods : "*",
 	optionSuccessStauts : 204
