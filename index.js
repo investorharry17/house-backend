@@ -48,25 +48,25 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 // home 
-app.use("/ibommarket/api/v1/", homeRoute)
+app.use("/api/v1/", homeRoute)
 
 // user routes
-app.use("/ibommarket/api/v1/", userRoute)
+app.use("/api/v1/", userRoute)
 
 // post routes 
-app.use("/ibommarket/api/v1/", postRoute)
+app.use("/api/v1/", postRoute)
 
 // bookmark route
-app.use("/ibommarket/api/v1/", bookmarkRoute)
+app.use("/api/v1/", bookmarkRoute)
 
 // post category route
-app.use("/ibommarket/api/v1/", postCategoryRoute)
+app.use("/api/v1/", postCategoryRoute)
 
 // post sub-category route
-app.use("/ibommarket/api/v1/", postSubCategoryRoute)
+app.use("/api/v1/", postSubCategoryRoute)
 
 // post mini-category route
-app.use("/ibommarket/api/v1/", postMiniCategoryRoute)
+app.use("/api/v1/", postMiniCategoryRoute)
 
 app.use("*", (req,res)=> {
 	res.status(404).json({status: "failed", message: "invalid endpoint"})
