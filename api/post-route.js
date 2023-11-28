@@ -168,7 +168,7 @@ postRoute.delete("/post", async (req, res)=> {
 
 
 // find post
-postRoute.post("/post/find", async (req, res)=> {
+postRoute.get("/post/find", async (req, res)=> {
 	const  queryParam  = req.query.searchString 
 	console.log(queryParam)
 		try {
