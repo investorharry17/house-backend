@@ -169,7 +169,7 @@ postRoute.delete("/post", async (req, res)=> {
 
 // find post
 postRoute.get("/post/find/s", async (req, res)=> {
-	const  queryParam  = req.query 
+	const  queryParam  = req.query.searchString 
 	console.log(queryParam)
 		try {
 			let result = await PostSchemaE.find({
@@ -180,7 +180,7 @@ postRoute.get("/post/find/s", async (req, res)=> {
 			})
 		 	 res.status(200).json(result)
 		} catch (error) {
-		  res.status(500).json(error )
+		  res.status(500).json(error)
 		}
 		  
 	 
