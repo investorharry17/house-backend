@@ -3,12 +3,6 @@ import express from "express"
 import multer from "multer"
 const postRoute = express.Router()
 import PostSchemaE from "../schema/post-schema.js"
-// import {multer} from "multer"
-
-
-
-
-
  
 // create post
 postRoute.post("/post",   async (req,res)=>{
