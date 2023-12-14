@@ -1,8 +1,15 @@
 import express from "express"
 import UserSchemaE from "../schema/user-schema.js" 
+import jwt from "jsonwebtoken"
+
+
 const userRoute = express.Router()
+const { sign , verify } = jwt
+
 
 // create user
+
+
 userRoute.post("/auth/register", async (req,res)=>{
 	try {
 		const newUser = new UserSchemaE({
@@ -42,11 +49,12 @@ userRoute.post("/auth/login", async (req,res)=>{
 		if (!user._doc) {
 		  return res.status(400).json( {message : "This user does not exist", user : [] })
 		   
-		}
+		} 
 		 
 		else if (user._doc && user.password === req.body.password.trim() ) {
 			const  {password , ...sendDetails} = user
-			return user && res.status(200).json({ message : "user logged in", user : sendDetails._doc }) 
+			const token = sign({ id : sendDetails._doc._id },  "harrison", {expiresIn: 300} ) 
+			return user && res.status(200).json({ message : "user logged in", user : sendDetails._doc, token  }) 
 		} else {
 		 return res.status(401).json( {message : "Invalid password " , user : []  }) 
 		}
@@ -59,6 +67,34 @@ userRoute.post("/auth/login", async (req,res)=>{
 		res.status(500).json({message : error})
 	}
 }) 
+// getUserWithToken
+userRoute.get("/auth/currentuser", async (req,res) => {
+ 	const authHeader = req.headers['authorization'];
+ 	try {
+		if (authHeader) {
+		const token = authHeader.split(' ')[1];
+		const verifycode = verify(token, "harrison"); 
+		const user = await UserSchemaE.findOne({_id : verifycode.id})
+
+		if (user) {
+
+			return res.status(201).json( { user})
+		} else {
+			return res.status(404).json( {message : "User not found"})
+
+		}
+		// console.log(us)
+		
+		} else {
+		console.log(authHeader)
+		return res.status(404).json( {message : "Token expired"})
+		
+		}
+
+ 	} catch(error) {
+ 		res.status(500).json({ message : error })
+ 	}
+})
 // get all users
 userRoute.get("/user", async (req, res)=> {
 	try {
