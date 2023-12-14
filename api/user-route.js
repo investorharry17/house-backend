@@ -53,7 +53,7 @@ userRoute.post("/auth/login", async (req,res)=>{
 		 
 		else if (user._doc && user.password === req.body.password.trim() ) {
 			const  {password , ...sendDetails} = user
-			const token = sign({ id : sendDetails._doc._id },  "harrison", {expiresIn: 300} ) 
+			const token = sign({ id : sendDetails._doc._id },  "harrison", {expiresIn: '30d'} ) 
 			return user && res.status(200).json({ message : "user logged in", user : sendDetails._doc, token  }) 
 		} else {
 		 return res.status(401).json( {message : "Invalid password " , user : []  }) 
